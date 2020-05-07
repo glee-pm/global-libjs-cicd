@@ -1,0 +1,22 @@
+{
+  "name": "@policyme/pm_cicd",
+  "version": "0.1.0",
+  "description": "Deploy scripts for the updating changelog and dev version bump",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "publishConfig": {
+    "access": "restricted"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/policyme/global-libjs-cicd.git"
+  },
+  "author": "PolicyMe",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/policyme/global-libjs-cicd"
+  },
+  "homepage": "https://github.com/policyme/global-libjs-cicd#readme"
+}
