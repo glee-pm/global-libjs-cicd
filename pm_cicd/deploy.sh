@@ -1,35 +1,34 @@
-if [ "$TRAVIS_BRANCH" == "feature/ST-1234-Testing" ]; then
+'''
+bumps version & generates the changelog
+'''
 
-    run_test(){
-    # Run the jest unit tests
-        cd app/gui 
-    # Installing the node dependency 
-        npm install
-    # Run the test command
-        npm run test 
-        }
+# get environment variables
+travis_branch = $TRAVIS_BRANCH
+github_token = $GITHUB_PERSONAL_ACCESS_TOKEN
+repo_name = $TRAVIS_REPO_SLUG
 
-    run_test
-fi
+COMMIT_MESSAGE = "Updating CHANGELOG.md and bumping the version [skip ci]"
 
-if [ "$TRAVIS_BRANCH" == "develop" ]; then
+if [ $travis_branch == "develop" ]; then
 
     # Bumps the version
+    echo "Bump version"
     node pm_cicd/bump_dev_version.js
 
-    # Generates the changelog 
+    # Generates the changelog
+    echo "Generate Changelog"
     node pm_cicd/generate_changelog.js
   
     commit_file() {
       git add *
-      git commit --message "Updating the CHANGELOG.md and the _version file"
+      git commit --message $COMMIT_MESSAGE
     }
 
     upload_files() {
-      git remote add develop  https://${TOKEN}@github.com/policyme/${REPO_NAME}.js.git > /dev/null 2>&1
-      git push develop HEAD:develop
+      git push "https://policyme:${github_token}@github.com/${repo_name}.git" HEAD:${travis_branch}
     }
 
+    echo "commit & push to git"
     commit_file
     upload_files
 

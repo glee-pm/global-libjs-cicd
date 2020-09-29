@@ -48,7 +48,7 @@ function gen_changelog() {
 
     // Gets the ticket number from the commit message
     for (let i = 0; i < commits.length; i++) {
-      if (commits[i].subject !== 'Updating the CHANGELOG.md and the _version file') {
+      if (!commits[i].subject.includes("[skip ci]")) {
         if (is_pull_request(commits[i].subject)) {
           ticketNumber = commits[i].subject.split(' ')[5].split('/')[2].split('-');
           ticketNumber = ticketNumber.slice(0, 2).join('-');
